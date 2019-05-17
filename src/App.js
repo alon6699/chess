@@ -1,24 +1,29 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './App.css';
-import {Container, Row, Col} from 'react-bootstrap';
+import { Switch, Route } from 'react-router-dom'
+import { Container, Row } from 'react-bootstrap';
+import Game from './Game/Game';
 
 class App extends Component {
   render() {
-      return (
-<Container>
-  <Row>
-    <Col>1 of 2</Col>
-    <Col>2 of 2</Col>
-  </Row>
-  <Row>
-    <Col>1 of 3</Col>
-    <Col>2 of 3</Col>
-    <Col>3 of 3</Col>
-  </Row>
-</Container>
-      );
-    }
+    return (
+      <Switch>
+      <Route exact path='/' component={Game}/>
+      {/* <Route path='/roster' component={Roster}/>
+      <Route path='/schedule' component={Schedule}/> */}
+    </Switch>
+      // <Container>
+      //   <Row className="justify-content-md-center">
+      //   play
+      //   </Row>
+      //   <Row className="justify-content-md-center">
+      //   options
+      //   </Row>
+      //   <Game></Game>
+      // </Container>
+    );
   }
-  
+}
+
 
 export default App;
