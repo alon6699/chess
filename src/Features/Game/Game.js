@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Container, Row } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 
 import './Game.css';
+import Board from './Board/Board';
 
 class Game extends Component {
   render() {
     return (
       <Container>
         <Row className="justify-content-md-center">
-        game
+            <Board></Board>
         </Row>
         <Row className="justify-content-md-center">
-        <Link to='/'>back</Link>
+        <Col md="auto" xs="auto" lg="auto" ><Link to='/'>back</Link></Col>
         </Row>
       </Container>
     );

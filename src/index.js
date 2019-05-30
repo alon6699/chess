@@ -8,7 +8,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.css';
 
 ReactDOM.render(  
 <BrowserRouter>
-    <App />
+    <App className="main"/>
   </BrowserRouter>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
