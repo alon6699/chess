@@ -7,19 +7,25 @@ import { Provider } from 'react-redux'
 import { todos } from './Core/Board/reducers/reducers';
 import * as serviceWorker from './serviceWorker';
 import '../node_modules/bootstrap/dist/css/bootstrap.css';
-import { createStore, combineReducers } from 'redux';
+import thunk from 'redux-thunk';
+import { applyMiddleware, compose, createStore, combineReducers } from 'redux';
 import { addTodo } from './Core/Board/Actions/actions';
 
 const allReduces = combineReducers({
   board: todos
 })
+
+const allStoreEnhancers = compose(
+  applyMiddleware(thunk),
+  window.devToolsExtension && window.devToolsExtension()
+);
 const store = createStore(
   allReduces,
-  {board: ['init']},
-  window.devToolsExtension && window.devToolsExtension()
+  {},
+  allStoreEnhancers
   );
 console.log(store.getState())
-store.dispatch(addTodo());
+
 console.log(store.getState())
 ReactDOM.render(  
   <Provider store={store}>

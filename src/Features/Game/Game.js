@@ -7,6 +7,7 @@ import Board from './Board/Board';
 
 class Game extends Component {
   render() {
+    console.log(this.props);
     return (
       <Container>
         <Row className="justify-content-md-center">
@@ -19,6 +20,5 @@ class Game extends Component {
     );
   }
 }
-
 
 export default Game;

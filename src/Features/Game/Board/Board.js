@@ -1,63 +1,62 @@
 import React from 'react';
 import { ButtonGroup } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import './Board.css';
 import Square from './Square/Square';
+import { addTodo, getBoard } from '../../../Core/Board/Actions/actions';
 
 class Board extends React.Component {
-  constructor(props) {
+  constructor(props){
     super(props);
-    const piece = {
-      name: 'queen',
-      isWhite: false
-    }
-    
-    const board = [];
-    for (let i = 0; i < 8; i++) {
-      const children = [];
-      for (let j = 0; j < 8; j++) {
-        children.push(piece);
-      }
-      board.push(children);
-    }
 
-    this.state = {board};
+    this.handleClick = this.handleClick.bind(this);
+    this.onUpdateBoard = this.onUpdateBoard.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.onGetBoard();
+  }
+
+  onUpdateBoard() {
+    this.props.onUpdateBoard(['start']);
   }
 
   convertIndexToPosition(index) {
     return {
-      x: parseInt(index / this.state.board.length), 
-      y: parseInt(index % this.state.board.length)
+      x: parseInt(index / this.props.board.length), 
+      y: parseInt(index % this.props.board.length)
     };
   }
 
   handleClick(index) {
-    const board = this.state.board.slice();
+    const board = this.props.board.slice();
     const position = this.convertIndexToPosition(index);
     board[position.x][position.y] = {
       name: 'king',
       isWhite: false
     };
-    this.setState({board: board});
   }
 
   createBoard() {
+    console.log(this.props);
       const black = "black";
       const white = "white";
       let isBlack = false;
       const board = [];
-      this.state.board.forEach((row, rowIndex) => {
+      this.props.board.forEach((row, rowIndex) => {
         let children = [];
         row.forEach((piece, pieceIndex) => {
-          const key = (rowIndex* this.state.board.length) + pieceIndex;
+          const key = (rowIndex* this.props.board.length) + pieceIndex;
           children.push(
           <Square 
-          key={key.toString()}
-          value = {key}
-          background={isBlack? black: white} 
-          piece={piece} 
-          className="square"
-          onclick = {() => this.handleClick(key)}
+                key={key.toString()}
+                value = {key}
+                background={isBlack? black: white} 
+                piece={piece} 
+                className="square"
+                onclick = {() => this.handleClick(key)}
            />
           );
           isBlack = !isBlack;
@@ -75,4 +74,18 @@ class Board extends React.Component {
     }
   }
 
-  export default Board;
+  const mapStateProps = (state, props) => ({
+    board: state.board
+  })
+  
+  const mapActionToProps = (dispatch, props) => 
+  bindActionCreators(
+    {
+      onUpdateBoard : addTodo,
+      onGetBoard: getBoard
+    }, dispatch)
+  
+    const mergeProps = (propFromState, propsFromDispatch, ownProps) => {
+  
+    };
+  export default connect(mapStateProps, mapActionToProps)(Board);
