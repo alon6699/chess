@@ -1,9 +1,4 @@
-import { VisibilityFilters } from "../Actions/actions";
-
-const piece = {
-    name: 'king',
-    isWhite: false
-}
+import { GameActions } from "../Actions/actions";
 
 const GameStatus = {
   WIN: "win",
@@ -23,17 +18,13 @@ const initState = {
   gameStatus: GameStatus.INIT,
   player: Player.WHITE
 };
-// for (let i = 0; i < 8; i++) {
-//     const children = [];
-//     for (let j = 0; j < 8; j++) {
-//         children.push(piece);
-//     }
-//     initState.push(children);
-// }
+
+const actionHandler = {
+  [GameActions.updateBoard] : (state, action) => {
+    return {...state, board: action.payload.board};
+  }
+}
 
 export const Game = (state = initState, action) => {
-    switch (action.type) {
-      default:
-        return state;
-    }
-  }
+  return actionHandler[action.type] ? actionHandler[action.type](state,action) : state;
+}

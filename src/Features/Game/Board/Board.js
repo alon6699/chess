@@ -6,17 +6,17 @@ import { bindActionCreators } from 'redux';
 import './Board.css';
 import Square from './Square/Square';
 import { addTodo } from '../../../Core/Board/Actions/actions';
+import { sendMessage } from '../../../Core/Server/Actions/Server.action';
 
 class Board extends React.Component {
   constructor(props){
     super(props);
 
     this.handleClick = this.handleClick.bind(this);
-    this.onUpdateBoard = this.onUpdateBoard.bind(this);
   }
 
-  onUpdateBoard() {
-    this.props.onUpdateBoard(['start']);
+  componentDidMount() {
+    this.props.onSendMessage(this.props.server, 'hello');
   }
 
   convertIndexToPosition(index) {
@@ -65,13 +65,14 @@ class Board extends React.Component {
   }
 
   const mapStateProps = (state, props) => ({
-    board: state.game.board
+    board: state.game.board,
+    server: state.server
   })
   
   const mapActionToProps = (dispatch, props) => 
   bindActionCreators(
     {
-      onUpdateBoard : addTodo
+      onSendMessage: sendMessage
     }, dispatch)
   
     const mergeProps = (propFromState, propsFromDispatch, ownProps) => {
