@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 
 import './Board.css';
 import Square from './Square/Square';
-import { addTodo, getBoard } from '../../../Core/Board/Actions/actions';
+import { addTodo } from '../../../Core/Board/Actions/actions';
 
 class Board extends React.Component {
   constructor(props){
@@ -13,10 +13,6 @@ class Board extends React.Component {
 
     this.handleClick = this.handleClick.bind(this);
     this.onUpdateBoard = this.onUpdateBoard.bind(this);
-  }
-
-  componentDidMount() {
-    this.props.onGetBoard();
   }
 
   onUpdateBoard() {
@@ -31,16 +27,10 @@ class Board extends React.Component {
   }
 
   handleClick(index) {
-    const board = this.props.board.slice();
-    const position = this.convertIndexToPosition(index);
-    board[position.x][position.y] = {
-      name: 'king',
-      isWhite: false
-    };
+      console.log(index);
   }
 
   createBoard() {
-    console.log(this.props);
       const black = "black";
       const white = "white";
       let isBlack = false;
@@ -75,14 +65,13 @@ class Board extends React.Component {
   }
 
   const mapStateProps = (state, props) => ({
-    board: state.board
+    board: state.game.board
   })
   
   const mapActionToProps = (dispatch, props) => 
   bindActionCreators(
     {
-      onUpdateBoard : addTodo,
-      onGetBoard: getBoard
+      onUpdateBoard : addTodo
     }, dispatch)
   
     const mergeProps = (propFromState, propsFromDispatch, ownProps) => {

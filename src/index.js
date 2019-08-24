@@ -4,15 +4,16 @@ import './index.css';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import { todos } from './Core/Board/reducers/reducers';
+import { Game } from './Core/Board/reducers/reducers';
 import * as serviceWorker from './serviceWorker';
 import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import thunk from 'redux-thunk';
 import { applyMiddleware, compose, createStore, combineReducers } from 'redux';
-import { addTodo } from './Core/Board/Actions/actions';
+import { ServerReducer } from './Core/Server/Reducers/Server.reducer';
 
 const allReduces = combineReducers({
-  board: todos
+  game: Game,
+  server: ServerReducer
 })
 
 const allStoreEnhancers = compose(
@@ -24,9 +25,7 @@ const store = createStore(
   {},
   allStoreEnhancers
   );
-console.log(store.getState())
 
-console.log(store.getState())
 ReactDOM.render(  
   <Provider store={store}>
   <BrowserRouter>

@@ -4,20 +4,35 @@ const piece = {
     name: 'king',
     isWhite: false
 }
-  
-const initState = [];
-for (let i = 0; i < 8; i++) {
-    const children = [];
-    for (let j = 0; j < 8; j++) {
-        children.push(piece);
-    }
-    initState.push(children);
+
+const GameStatus = {
+  WIN: "win",
+  LOSE: "lose", 
+  DRAW: "draw",
+  IN_PROGRESS: "inProgress",
+  INIT: "init"
 }
 
-export const todos = (state = initState, action) => {
+const Player = {
+  BLACK: "black",
+  WHITE : "white"
+}
+  
+const initState = {
+  board: [],
+  gameStatus: GameStatus.INIT,
+  player: Player.WHITE
+};
+// for (let i = 0; i < 8; i++) {
+//     const children = [];
+//     for (let j = 0; j < 8; j++) {
+//         children.push(piece);
+//     }
+//     initState.push(children);
+// }
+
+export const Game = (state = initState, action) => {
     switch (action.type) {
-      case VisibilityFilters.SHOW_ALL:
-        return action.board;
       default:
         return state;
     }
